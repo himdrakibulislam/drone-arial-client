@@ -1,0 +1,23 @@
+.banner {
+    padding: 25px;
+    background: url('https://i.ibb.co/R984zGK/banner-1.png');
+    background-repeat: no-repeat;
+    background-size:100%;
+    height: 500px;
+    margin-bottom: 100px;
+}
+.banner-text{
+    margin-top: 200px;
+    font-weight: bolder;
+    font-style:oblique;
+}
+@media only screen and (max-width: 600px) {
+    .banner{
+        height: 200px;
+    }
+    .banner-text{
+        margin-top: 70px;
+        font-weight: 100;
+        font-size:medium;
+    }
+  }

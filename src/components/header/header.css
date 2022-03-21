@@ -1,0 +1,17 @@
+.navigation a{
+     text-decoration: none;
+     color: black;
+     margin-right: 30px;
+     padding: 10px;
+}
+.navigation a:hover{
+    background-color: rgb(14, 6, 6);
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+}
+.userName{
+    margin-top: 14px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

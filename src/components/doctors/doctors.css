@@ -1,0 +1,14 @@
+.doctors-info {
+    background: url('https://i0.wp.com/medicalmeasurements.com/wp-content/uploads/2017/07/banner-2017-cardiology.png') no-repeat;
+    height: 500px;
+    margin-top: 150px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media only screen and (max-width: 600px) {
+    .doctors-info{
+        height: 200px;
+    }
+  }
