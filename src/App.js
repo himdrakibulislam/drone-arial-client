@@ -1,59 +1,63 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './components/header/Header';
-import Banner from './components/banner/Banner';
-import Footer from './components/footer/Footer'
-import { Container } from 'react-bootstrap';
-import Services from './components/services/Services';
 import { BrowserRouter } from 'react-router-dom';
-import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-import Login from './components/login/Login';
-import ContextProvider from './components/context/ContextProvider';
-import Doctors from './components/doctors/Doctors';
-import Details from './components/details/Details';
-import PrivateRoute from './components/privateRoute/PrivateRoute';
-import NotFound from './components/notFound/NotFound';
-import HealthTips from './components/healthtips/HealthTips';
+import { Switch } from 'react-router-dom';
+import './App.css';
+import AuthContext from './context/AuthContext';
+import Dashboard from './dashboard/Dashboard';
+import Explore from './pages/explore/Explore';
+import Home from './pages/home/Home';
+import Login from './pages/login/Login';
+import MyOrders from './pages/myOrders/MyOrders';
+import Pay from './pages/pay/Pay';
+import PlaceOrder from './pages/placeOrder/PlaceOrder';
+import PrivateRoute from './pages/privateRoute/PrivateRoute';
+import Register from './pages/register/Register';
+import WriteReview from './pages/writeReview/WriteReview';
+import Navigation from './shared/navigation/Navigation';
 function App() {
   return (
-    <div>
-      
-      <Container>
-      <ContextProvider>
+    <div className='App'>
+      <AuthContext>
         <BrowserRouter>
-        <Header></Header>
+       <Navigation></Navigation>
         <Switch>
           <Route exact path='/'>
-          <Banner></Banner>
-          <Services></Services>
-          <Footer></Footer>
+            <Home></Home>
           </Route>
-          <PrivateRoute path='/doctors'>
-            <Doctors></Doctors>
-          </PrivateRoute>
-          <PrivateRoute path='/details/:serviceId'>
-            <Details></Details>
-          </PrivateRoute>
           <Route path='/home'>
-          <Banner></Banner>
-          <Services></Services>
-          <Footer></Footer>
+          <Home></Home>
           </Route>
-          <PrivateRoute path='/healthtips'>
-            <HealthTips></HealthTips>
-          </PrivateRoute>
-          <Route path='/login'>
-            <Login></Login>
+          <Route path='/login'> 
+          <Login></Login>
           </Route>
+          <Route path='/register'>
+            <Register></Register>
+          </Route>
+          <Route path='/explore'>
+           <Explore></Explore>
+          </Route>
+         <PrivateRoute path='/placeorder/:productId'>
+           <PlaceOrder></PlaceOrder>
+         </PrivateRoute>
+         <PrivateRoute path='/myorders'>
+           <MyOrders></MyOrders>
+         </PrivateRoute>
+         <PrivateRoute path='/review'>
+           <WriteReview></WriteReview>
+         </PrivateRoute>
+         <PrivateRoute path='/pay'>
+           <Pay></Pay>
+         </PrivateRoute>
+         <PrivateRoute path='/dashboard'>
+          <Dashboard></Dashboard>
+         </PrivateRoute>
           <Route path='*'>
-            <NotFound></NotFound>
+           <h3>No Page Found</h3>
           </Route>
         </Switch>
         </BrowserRouter>
-        </ContextProvider>
-      </Container>
-     
+        </AuthContext>
+        
     </div>
   );
 }

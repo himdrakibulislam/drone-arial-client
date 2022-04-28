@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import { getContext } from "../components/context/ContextProvider"
+import { contextProvider } from "../context/AuthContext"
 
-const useAuth = () =>{
-    return useContext(getContext)
+const useAuth = ()=>{
+    return useContext(contextProvider)
 }
 export default useAuth;
