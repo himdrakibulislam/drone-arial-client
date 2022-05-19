@@ -1,56 +1,61 @@
-import { Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import {  Button, CircularProgress, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Box } from '@mui/system';
+import EditIcon from '@mui/icons-material/Edit';
+import { Link } from 'react-router-dom';
 const ManageProduct = () => {
     const [products,setProducts ] =useState([])
     useEffect(()=>{
-        fetch('http://localhost:5000/allproducts')
+        fetch('https://afternoon-badlands-69676.herokuapp.com/allproducts')
         .then(res => res.json())
         .then(data => setProducts(data))
-    },[])
+    },[]);
+    const deleteProduct = (id,imageId)=>{
+      // delete image
+      const imageurl = `https://afternoon-badlands-69676.herokuapp.com/deleteimage/${imageId}`
+      fetch(imageurl, {
+        method: 'DELETE', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => res.json())
+      .then(data => {})
+      // delete product
+      const url = `https://afternoon-badlands-69676.herokuapp.com/deleteProduct/${id}`
+      fetch(url, {
+        method: 'DELETE', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(res => res.json())
+      .then(data =>{ if(data.deletedCount){
+        const remaining =   products.filter(product => product._id !== id )
+        setProducts(remaining);
+      }})
+
+    }
     return (
         <div>
             <h3>Manage Products</h3>
-            <Grid container spacing={{ xs: 1, md: 1 }} columns={{ xs: 4, sm: 6, md: 16 }}>
+            {
+              products.length === 0? <CircularProgress/> :<Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+              {products.map((product) => (
+              <Grid item xs={4} sm={4} md={6} key={product._id}>
+                <img src={product.imageUrl} width="200" height="180" alt="" />
+                <p>{product.name}</p>
+                <p>{product.description.slice(0,100)}</p>
+                <small>$ { product.Price}</small>
+                <br />
+              
+                <Link to={`/dashboard/editproduct/${product._id}`} style={{textDecoration:'none'}}><Button sx={{mr:2}} variant="outlined"><EditIcon></EditIcon> Edit</Button></Link>
+                <Button variant="outlined" onClick={()=> deleteProduct(product._id,product.imageId)}><DeleteIcon></DeleteIcon> Delete</Button>
+              </Grid>
+            ))}
+          </Grid>
             
-
-            {
-           products.map(product=><Box key={product._id} sx={{display:'flex',my:3,alignItems:'center',justifyContent:'center'}}>
-               <Grid item sx={{width:'300px',height:'170px'}} >
-               <Card sx={{ display: 'flex' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="div" variant="h5">
-            {
-              product.name  
             }
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary" component="div">
-           USD$ {
-               product.Price
-           }
-          </Typography>
-             <Button variant="outlined"  startIcon={<DeleteIcon />}>
-                Delete
-                </Button>
-        </CardContent>
-        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-          
-        </Box>
-      </Box>
-      <CardMedia
-        component="img"
-        sx={{ width: 151 }}
-        image={product.imageUrl}
-        alt="Live from space album cover"
-      />
-    </Card>
-      </Grid>
-           </Box>)
-
-           }    
-       </Grid>
         </div>
     );
 };

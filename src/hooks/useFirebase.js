@@ -11,13 +11,13 @@ firebaseInstalling();
             const [admin,setAdmin] = useState();
             const googleProvider = new GoogleAuthProvider()
             // signInWithGoogle
-            const signInWithGoogle = (histoy,location)=>{
+            const signInWithGoogle = (history,location)=>{
                 setIsLoading(true)
                 signInWithPopup(auth, googleProvider)
                     .then((result) => {
                         const user = result.user;
                         const redirect = location?.state?.from || '/'
-                        histoy.replace(redirect);
+                        history.replace(redirect);
                         saveUser(user.displayName,user.email,'PUT')
                     }).catch((error) => {
                         const errorMessage = error.message;
@@ -41,7 +41,7 @@ firebaseInstalling();
           return () => unsubscribed;
         },[auth]);
         // register a user
-        const registerUser = (email,password,name,histoy)=>{
+        const registerUser = (email,password,name,history)=>{
             setIsLoading(true)
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
@@ -52,7 +52,7 @@ firebaseInstalling();
                       }).catch((error) => {
 
                       });
-                      histoy.replace('/')
+                      history.replace('/')
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
@@ -60,12 +60,12 @@ firebaseInstalling();
                 }).finally(()=> setIsLoading(false));
         }
         // login a user
-        const loginUser = (email,password,histoy,location) =>{
+        const loginUser = (email,password,history,location) =>{
             setIsLoading(true)
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const redirect = location?.state?.from || '/'
-                    histoy.replace(redirect);
+                    history.replace(redirect);
                 })
                 .catch((error) => {
                     const errorMessage = error.message;
@@ -84,7 +84,7 @@ firebaseInstalling();
         // save user
         const saveUser = (name,email,method)=>{
             const user = {name,email}
-            fetch('http://localhost:5000/user',{
+            fetch('https://afternoon-badlands-69676.herokuapp.com/user',{
                 method: method,
             headers: {
                 'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ firebaseInstalling();
         }
         // admin
         useEffect(()=>{
-            const url = `http://localhost:5000/user/${user.email}`
+            const url = `https://afternoon-badlands-69676.herokuapp.com/user/${user.email}`
             fetch(url)
             .then(res => res.json())
             .then(data => setAdmin(data.admin))

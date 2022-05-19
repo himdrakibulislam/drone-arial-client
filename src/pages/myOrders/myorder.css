@@ -1,0 +1,9 @@
+.my-order-style{
+    display: flex;
+    border: 1px solid black;
+    margin: 10px;
+}
+.detail{
+    display: flex;
+    margin: 10px
+}

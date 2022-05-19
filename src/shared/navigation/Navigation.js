@@ -134,11 +134,12 @@ const Navigation = () => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem  onClick={handleCloseUserMenu}>
-              <Link style={{textDecoration:'none'}} to="/pay"><Typography textAlign="center">Pay</Typography></Link>
+                  <Link  style={{textDecoration:'none'}} to="/cart"><Typography textAlign="center">Cart</Typography></Link>
                 </MenuItem>
               <MenuItem  onClick={handleCloseUserMenu}>
                   <Link  style={{textDecoration:'none'}} to="/myorders"><Typography textAlign="center">My Orders</Typography></Link>
                 </MenuItem>
+              
               <MenuItem  onClick={handleCloseUserMenu}>
                   <Link style={{textDecoration:'none'}} to="/review"><Typography textAlign="center">Review</Typography></Link>
                 </MenuItem>

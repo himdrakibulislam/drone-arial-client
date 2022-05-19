@@ -7,7 +7,7 @@ const MakeAdmin = () => {
     const handleMakeAdmin = (e)=>{
         e.preventDefault();
        const email = {adminEmail}
-       fetch('http://localhost:5000/user/admin',{
+       fetch('https://afternoon-badlands-69676.herokuapp.com/user/admin',{
             method:'PUT',
             headers: {
                 'Content-Type': 'application/json',

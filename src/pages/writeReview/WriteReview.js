@@ -1,18 +1,12 @@
-import { Button, TextareaAutosize, TextField } from '@mui/material';
+import { Button, Rating, TextareaAutosize } from '@mui/material';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth'
 const WriteReview = () => {
     const {user} = useAuth();
-    const [review,setReview] = useState({});
+    const [rating, setRating] = React.useState(0);
+    const [reviewDescription,setReviewDescription] = useState('');
     const history = useHistory();
-    const handleReviewOnChange =(e)=>{
-        const field= e.target.name;
-        const value = e.target.value;
-        const newReview = {...review}
-        newReview[field] = value;
-        setReview(newReview);
-    }
     const submitReview =(e)=>{
         e.preventDefault();
         const name = user.displayName;
@@ -20,9 +14,10 @@ const WriteReview = () => {
         const reviewDetails = {
             name,
             email,
-            ...review
+            rating: rating,
+            review : reviewDescription
         }
-        fetch('http://localhost:5000/review',{
+        fetch('https://afternoon-badlands-69676.herokuapp.com/review',{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -38,20 +33,21 @@ const WriteReview = () => {
         <div>
            <h3>Write Review</h3> 
            <form onSubmit={submitReview} >
-           <TextField
-                sx={{width:'50%'}}
-                id="standard-basic"
+
+           <Rating
                 name="rating"
-                type="number"
-                onChange={handleReviewOnChange}
-                label="Rating Star"
-                variant="standard" />
+                value={rating}
+                onChange={(event,newValue) => {
+                setRating(newValue);
+                }}
+      />
+           
                 <br />
                 <br />
                 <TextareaAutosize
                     aria-label="minimum height"
                     minRows={3}
-                    onChange={handleReviewOnChange}
+                    onChange={e=>setReviewDescription(e.target.value)}
                     name="review"
                     placeholder="Review"
                     style={{ width: "50%" }}

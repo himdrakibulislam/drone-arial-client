@@ -29,6 +29,9 @@ import AdminPrivate from './adminPrivate/AdminPrivate';
 import ManageProduct from '../pages/addProduct/mangeProduct/ManageProduct'
 import ProfileInfo from './profileInfo/ProfileInfo';
 import ManageAllOrders from './manageallorders/ManageAllOrders';
+import EditProduct from './editProduct/EditProduct';
+import GroupIcon from '@mui/icons-material/Group';
+import ManageUsers from './manageusers/ManageUsers';
 const drawerWidth = 240;
 function Dashboard(props) {
     const { window } = props;
@@ -60,6 +63,9 @@ function Dashboard(props) {
                 <br />
                 <br />
                 <Link style={{textDecoration:'none'}} to={`${url}/manageallorders`}><Button sx={{width:'80%'}}variant="outlined"><ManageAccountsIcon></ManageAccountsIcon>Manage All Orders</Button></Link>
+                <br />
+                <br />
+                <Link style={{textDecoration:'none'}} to={`${url}/manageusers`}><Button sx={{width:'80%'}}variant="outlined"> <GroupIcon></GroupIcon>  Manage Users</Button></Link>
                 </>
               }
         </List>
@@ -148,6 +154,12 @@ function Dashboard(props) {
         </AdminPrivate>
         <AdminPrivate path={`${path}/manageallorders`}>
           <ManageAllOrders></ManageAllOrders>
+        </AdminPrivate>
+        <AdminPrivate path={`${path}/editproduct/:id`}>
+           <EditProduct></EditProduct>
+        </AdminPrivate>
+        <AdminPrivate path={`${path}/manageusers`}>
+           <ManageUsers></ManageUsers>
         </AdminPrivate>
       </Switch>
         </Box>

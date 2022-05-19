@@ -1,8 +1,31 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import useAuth from '../../../hooks/useAuth';
 const Product = ({product}) => {
+    const {user} = useAuth();
+    const history = useHistory();
+    const addToCart =(product)=>{
+        const cartInfo = {
+            email: user.email,
+            product: product
+        }
+       if(user.email){
+        fetch('http://localhost:5000/cart',{
+            method:'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: JSON.stringify(cartInfo)
+        })
+        .then(res => res.json())
+        .then(data => {})
+       }else{
+           history.replace('/login')
+       }
+    }
     return (
         <div>
             <Grid item >
@@ -20,7 +43,7 @@ const Product = ({product}) => {
          }
         </Typography>
        
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" style={{textAlign:'justify'}} color="text.secondary">
          {
              product.description.slice(0,250)
          }
@@ -32,9 +55,12 @@ const Product = ({product}) => {
         </Typography>
             </CardContent>
             <CardActions>
-            <Link style={{textDecoration:'none'}} to={`/placeorder/${product._id}`} > 
+            <Link style={{textDecoration:'none',marginRight:'80px'}} to={`/placeorder/${product._id}`} > 
             <Button size="small">Buy Now</Button>
             </Link>
+            
+            <Button onClick={()=> addToCart(product)} size="small">Add To Cart</Button>
+            
             </CardActions>
             </Card>
         

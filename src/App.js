@@ -1,9 +1,13 @@
+import { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
+import 'swiper/css';
 import './App.css';
 import AuthContext from './context/AuthContext';
 import Dashboard from './dashboard/Dashboard';
+import Address from './pages/cart/address/Address';
+import Cart from './pages/cart/Cart';
 import Explore from './pages/explore/Explore';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
@@ -15,6 +19,9 @@ import Register from './pages/register/Register';
 import WriteReview from './pages/writeReview/WriteReview';
 import Navigation from './shared/navigation/Navigation';
 function App() {
+  const [total,setTotal] = useState(0);
+  const [productInfo,setProductInfo] = useState([]);
+  const [address,setAddress] = useState({});
   return (
     <div className='App'>
       <AuthContext>
@@ -27,6 +34,26 @@ function App() {
           <Route path='/home'>
           <Home></Home>
           </Route>
+          <PrivateRoute path='/cart'>
+           <Cart
+           setProductInfo={setProductInfo}
+           total={total}
+           setTotal={setTotal}
+           ></Cart>
+          </PrivateRoute>
+          <PrivateRoute path='/placeorder/:productId'>
+           <PlaceOrder
+           total={total}
+           setTotal ={setTotal}
+           setProductInfo={setProductInfo}
+           ></PlaceOrder>
+         </PrivateRoute>
+          <PrivateRoute path='/address'>
+           <Address
+           setAddress={setAddress}
+           total={total}
+           ></Address>
+          </PrivateRoute>
           <Route path='/login'> 
           <Login></Login>
           </Route>
@@ -36,9 +63,7 @@ function App() {
           <Route path='/explore'>
            <Explore></Explore>
           </Route>
-         <PrivateRoute path='/placeorder/:productId'>
-           <PlaceOrder></PlaceOrder>
-         </PrivateRoute>
+         
          <PrivateRoute path='/myorders'>
            <MyOrders></MyOrders>
          </PrivateRoute>
@@ -46,7 +71,14 @@ function App() {
            <WriteReview></WriteReview>
          </PrivateRoute>
          <PrivateRoute path='/pay'>
-           <Pay></Pay>
+           <Pay
+           total={total}
+           productInfo={productInfo}
+           address={address}
+           setTotal={setTotal}
+           setAddress={setAddress}
+           setProductInfo={setProductInfo}
+           ></Pay>
          </PrivateRoute>
          <PrivateRoute path='/dashboard'>
           <Dashboard></Dashboard>

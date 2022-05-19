@@ -1,13 +1,17 @@
 import { Button, TextareaAutosize, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 const AddProduct = () => {
+    const history = useHistory()
     const handleAddSubmit = (e)=>{
         e.preventDefault();
         const addProduct ={
             ...productData,
-            imageUrl
+            imageUrl,
+            imageId,
+            quantity:1
         }
-        fetch('http://localhost:5000/addProduct',{
+        fetch('https://afternoon-badlands-69676.herokuapp.com/addProduct',{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -16,11 +20,13 @@ const AddProduct = () => {
               body:JSON.stringify(addProduct)
         }).then(res => res.json())
         .then(data => {if(data.insertedId){
+            history.replace('/')
             alert("Product Added Successfully");
         }})
     }
     const [productData,setProductData] = useState({});
     const [imageUrl,setImageUrl] = useState('');
+    const [imageId,setImageId] = useState('');
     const handleProductOnBlur = (e)=>{
         const field = e.target.name;
         const value = e.target.value;
@@ -37,7 +43,10 @@ const AddProduct = () => {
           body: imageForm,
       })
       .then(res => res.json())
-      .then(data =>setImageUrl(data.secure_url))
+      .then(data => {
+          setImageUrl(data.secure_url)
+          setImageId(data.public_id)
+      })
     }
     return (
         <div>
@@ -77,7 +86,7 @@ const AddProduct = () => {
                  <br />
                  <br />
                  {
-                     imageUrl?<Button type='submit'  sx={{width:'30%'}} variant="contained">Add Product</Button> :<Button type='submit' disabled sx={{width:'30%'}} variant="contained">Add Product</Button>
+                     imageUrl || imageId ?<Button type='submit'  sx={{width:'30%'}} variant="contained">Add Product</Button> :<Button type='submit' disabled sx={{width:'30%'}} variant="contained">Add Product</Button>
                  }
                  
             </form>
