@@ -9,7 +9,7 @@ const MyOrders = () => {
     const {user,idToken} = useAuth();
     useEffect(()=>{
       setIsLoading(true);
-        const url = `http://localhost:5000/userorders/${user.email}`
+        const url = `https://afternoon-badlands-69676.herokuapp.com/userorders/${user.email}`
         fetch(url,{
             headers:{
                 'authorization':`Bearer ${idToken}`

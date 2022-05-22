@@ -36,7 +36,7 @@ const Pay = ({total,productInfo,address,setTotal,setProductInfo,setAddress}) => 
             localStorage.clear('total');
             localStorage.clear('product');
             alert('Order Confirmed');
-            const url =`http://localhost:5000/clearCart/${user.email}`;
+            const url =`https://afternoon-badlands-69676.herokuapp.com/clearCart/${user.email}`;
             fetch(url,{
                 method:'DELETE'
             })

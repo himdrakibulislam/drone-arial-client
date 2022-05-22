@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState,useEffect} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,7 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth'
 import PersonIcon from '@mui/icons-material/Person';
-
+import { Badge } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 const Navigation = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -32,11 +34,18 @@ const Navigation = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const [cart,setCart] = useState([])
+   useEffect(()=>{
+    const url = `https://afternoon-badlands-69676.herokuapp.com/cart/${user.email}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => setCart(data))
+});
   return (
-    <AppBar position="static">
+    <div style={{marginBottom:'70px'}}>
+    <AppBar position="fixed" >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters >
           <Typography
             variant="h6"
             noWrap
@@ -110,7 +119,9 @@ const Navigation = () => {
               </Button>
          </Link>
           </Box>
-
+          <Link style={{textDecoration:'none'}} to="/cart"> <Badge badgeContent={cart.length} color="success">
+            <ShoppingCartIcon/>
+          </Badge></Link>
           {user.email ? <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -134,9 +145,6 @@ const Navigation = () => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem  onClick={handleCloseUserMenu}>
-                  <Link  style={{textDecoration:'none'}} to="/cart"><Typography textAlign="center">Cart</Typography></Link>
-                </MenuItem>
-              <MenuItem  onClick={handleCloseUserMenu}>
                   <Link  style={{textDecoration:'none'}} to="/myorders"><Typography textAlign="center">My Orders</Typography></Link>
                 </MenuItem>
               
@@ -156,6 +164,7 @@ const Navigation = () => {
         </Toolbar>
       </Container>
     </AppBar>
+    </div>
   );
 };
 export default Navigation;

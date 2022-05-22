@@ -17,6 +17,8 @@ import AddIcon from '@mui/icons-material/Add';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ReviewsIcon from '@mui/icons-material/Reviews';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 import {
   Switch,
   Route,
@@ -32,6 +34,7 @@ import ManageAllOrders from './manageallorders/ManageAllOrders';
 import EditProduct from './editProduct/EditProduct';
 import GroupIcon from '@mui/icons-material/Group';
 import ManageUsers from './manageusers/ManageUsers';
+import ManageReview from './manageReview/ManageReview';
 const drawerWidth = 240;
 function Dashboard(props) {
     const { window } = props;
@@ -62,10 +65,13 @@ function Dashboard(props) {
                 <Link style={{textDecoration:'none'}} to={`${url}/manageproducts`}><Button sx={{width:'80%'}}variant="outlined"><ManageAccountsIcon></ManageAccountsIcon>Manage Products</Button></Link>
                 <br />
                 <br />
-                <Link style={{textDecoration:'none'}} to={`${url}/manageallorders`}><Button sx={{width:'80%'}}variant="outlined"><ManageAccountsIcon></ManageAccountsIcon>Manage All Orders</Button></Link>
+                <Link style={{textDecoration:'none'}} to={`${url}/manageallorders`}><Button sx={{width:'80%'}}variant="outlined"><StorefrontIcon></StorefrontIcon> Manage All Orders</Button></Link>
                 <br />
                 <br />
                 <Link style={{textDecoration:'none'}} to={`${url}/manageusers`}><Button sx={{width:'80%'}}variant="outlined"> <GroupIcon></GroupIcon>  Manage Users</Button></Link>
+                <br />
+                <br />
+                <Link style={{textDecoration:'none'}} to={`${url}/managereview`}><Button sx={{width:'80%'}}variant="outlined"> <ReviewsIcon></ReviewsIcon>  Manage Review</Button></Link>
                 </>
               }
         </List>
@@ -160,6 +166,9 @@ function Dashboard(props) {
         </AdminPrivate>
         <AdminPrivate path={`${path}/manageusers`}>
            <ManageUsers></ManageUsers>
+        </AdminPrivate>
+        <AdminPrivate path={`${path}/managereview`}>
+           <ManageReview></ManageReview>
         </AdminPrivate>
       </Switch>
         </Box>

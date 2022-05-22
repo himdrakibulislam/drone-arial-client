@@ -49,6 +49,7 @@ const PlaceOrder = ({total,setTotal,setProductInfo}) => {
         const confirmProduct = [p]
         setProductInfo(confirmProduct);
         localStorage.setItem('product',JSON.stringify(confirmProduct));
+        localStorage.setItem('total',JSON.stringify(total));
         if(product){
             history.replace('/address')
         }

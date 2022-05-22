@@ -1,4 +1,3 @@
-import { Container } from '@mui/material';
 import React from 'react';
 import Footer from '../../shared/footer/Footer';
 import Review from '../review/Review';
@@ -9,12 +8,12 @@ const Home = () => {
   
     return (
         <div>
-            <Container>
+
            <Banner></Banner> 
            <Products></Products>
            <Review></Review>
            <Footer></Footer>
-          </Container> 
+          
         </div>
     );
 };

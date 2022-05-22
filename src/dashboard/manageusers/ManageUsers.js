@@ -7,7 +7,7 @@ const ManageUsers = () => {
     const [matchedUser,setMatchedUser] = useState([]);
     const {user,idToken} = useAuth();
     useEffect(()=>{
-        const url = `http://localhost:5000/allusers/${user.email}`
+        const url = `https://afternoon-badlands-69676.herokuapp.com/allusers/${user.email}`
         fetch(url,{
             headers: {
                 'Content-Type': 'application/json',

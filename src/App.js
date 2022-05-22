@@ -51,7 +51,6 @@ function App() {
           <PrivateRoute path='/address'>
            <Address
            setAddress={setAddress}
-           total={total}
            ></Address>
           </PrivateRoute>
           <Route path='/login'> 

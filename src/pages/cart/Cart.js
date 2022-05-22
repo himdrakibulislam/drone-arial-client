@@ -8,7 +8,7 @@ const Cart = ({total,setTotal,setProductInfo}) => {
     const {user} = useAuth();
     const history = useHistory();
     useEffect(()=>{
-        const url = `http://localhost:5000/cart/${user.email}`
+        const url = `https://afternoon-badlands-69676.herokuapp.com/cart/${user.email}`
         fetch(url)
         .then(res => res.json())
         .then(data => setCart(data))
@@ -47,7 +47,7 @@ const Cart = ({total,setTotal,setProductInfo}) => {
         setTotal(total)
       },[cart,setTotal])
       const deleteCart =(id)=>{
-          const url = `http://localhost:5000/cartdelete/${id}`;
+          const url = `https://afternoon-badlands-69676.herokuapp.com/cartdelete/${id}`;
           fetch(url,{
             method:'DELETE'
         })
@@ -59,7 +59,8 @@ const Cart = ({total,setTotal,setProductInfo}) => {
       };
       const confirmOrder =()=>{
         setProductInfo(cart);
-        localStorage.setItem('product',JSON.stringify(cart))
+        localStorage.setItem('product',JSON.stringify(cart));
+        localStorage.setItem('total',JSON.stringify(total))
         if(cart){
           history.replace('/address')
         }

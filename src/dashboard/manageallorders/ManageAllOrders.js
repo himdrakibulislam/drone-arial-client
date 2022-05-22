@@ -44,7 +44,6 @@ const ManageAllOrders = () => {
     const handleChange =(e)=>{
      setStatus(e.target.value)
     }
-    console.log(allOrders)
     return (
         <div>
             <h3>Manage All Orders</h3>

@@ -12,7 +12,7 @@ const Product = ({product}) => {
             product: product
         }
        if(user.email){
-        fetch('http://localhost:5000/cart',{
+        fetch('https://afternoon-badlands-69676.herokuapp.com/cart',{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json'

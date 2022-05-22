@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
-const Address = ({setAddress,total}) => {
+const Address = ({setAddress}) => {
     const {user} = useAuth();
     const initalInfo = {name:user.displayName,email:user.email};
     const [orderInfo,setOrderInfo] = useState(initalInfo);
@@ -11,8 +11,7 @@ const Address = ({setAddress,total}) => {
     const handleOrderSubmit = (e)=>{
         e.preventDefault();
         setAddress(orderInfo);
-        localStorage.setItem('address',JSON.stringify(orderInfo))
-        localStorage.setItem('total',JSON.stringify(total))
+        localStorage.setItem('address',JSON.stringify(orderInfo));
         if(orderInfo){
             history.replace('/pay');
         }
